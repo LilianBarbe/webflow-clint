@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "esbuild": "^0.19.11",
+    "gsap": "^3.12.4",
+    "jquery-ui": "^1.13.2",
+    "swiper": "^11.0.5"
+  },
+  "name": "webflow-clint",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:index": "esbuild src/index.js --bundle --minify --outfile=dist/index.js --watch",
+    "build": "node build.js",
+    "build:services": "esbuild src/services.js --bundle --minify --outfile=dist/services.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.7",
+    "@babel/preset-env": "^7.23.7"
+  }
+}
