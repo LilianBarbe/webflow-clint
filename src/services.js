@@ -1,12 +1,10 @@
-console.log("Services ;:!!!:");
+console.log("Services !!");
+import Swiper from "swiper";
+import "swiper/css";
 import { gsap } from "gsap";
+gsap.defaults({ duration: 0.25 });
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
-
-// import Swiper JS
-import Swiper from "swiper";
-// import Swiper styles
-import "swiper/css";
 
 $("[tr-scroll-toggle='component']").each(function (index) {
   // get elements
@@ -23,7 +21,7 @@ $("[tr-scroll-toggle='component']").each(function (index) {
   let triggers = component.find("[tr-scroll-toggle='trigger']");
   firstTrigger.css("margin-top", "-100vh");
   let trSpacer = $(
-    "<div class='tr-scroll-toggle-spacer' style='width: 100%; height: 100vh;'></div>"
+    "<div class='tr-scroll-toggle-spacer' style='width: 100%; height: 80vh;'></div>"
   )
     .hide()
     .appendTo(component);
@@ -194,14 +192,41 @@ $("[tr-scroll-toggle='component']").each(function (index) {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const swiper = new Swiper(".swiper", {
-    slidesPerView: 1,
-    centeredSlides: true,
-    spaceBetween: 30,
-    loop: false,
+  const swiperComponents = document.querySelectorAll("[swiper-component]");
+  swiperComponents.forEach((component) => {
+    const swiperElement = component.querySelector(".swiper");
+    const centerSlide = swiperElement.getAttribute("centerSlide");
+    if (swiperElement) {
+      const swiper = new Swiper(swiperElement, {
+        centeredSlides: false,
+        spaceBetween: 32,
+        followFinger: true,
+        autoHeight: false,
+        loop: false,
+        mousewheel: {
+          forceToAxis: true,
+        },
+        keyboard: {
+          enabled: true,
+          onlyInViewport: true,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: "auto",
+          },
+          240: {
+            slidesPerView: 1.33,
+            centeredSlides: centerSlide,
+          },
+        },
+      });
+    } else {
+      console.log(`Pas de swiper trouvé`);
+    }
   });
 });
-// BUTTON NEW
+
+// BUTTON ANIMATION
 const newBtns = document.querySelectorAll('[btn-new="wrap"]');
 newBtns.forEach((btn) => {
   btn.addEventListener("mouseout", function () {
@@ -212,3 +237,43 @@ newBtns.forEach((btn) => {
     this.classList.add("is-hover");
   });
 });
+
+// MODAL
+const modalWrap = document.querySelector('[modal="wrap"]');
+const modalQuitButton = modalWrap.querySelector('[modal="button"]');
+const modalBg = modalWrap.querySelector('[modal="bg"]');
+const modalCard = modalWrap.querySelector('[modal="card"]');
+const docButton = document.querySelector('[modal="want"]');
+
+const openModal = () => {
+  modalWrap.classList.remove("display-none");
+  document.body.style.overflow = "hidden";
+  gsap.set(modalCard, {
+    opacity: 1,
+    y: 0,
+  });
+  gsap.from(modalCard, {
+    opacity: 0,
+    y: 100,
+  });
+};
+
+const closeModal = () => {
+  gsap.to(modalCard, {
+    opacity: 0,
+    y: 20,
+    onComplete: function () {
+      modalWrap.classList.add("display-none");
+      document.body.style.overflow = "auto";
+    },
+  });
+};
+
+docButton.addEventListener("click", openModal);
+modalQuitButton.addEventListener("click", closeModal);
+modalBg.addEventListener("click", closeModal);
+
+// EMPTY TESTIMONIAL
+const emptyTesti = document.querySelector("[testi-empty]");
+const testiList = document.querySelector("[testi-list]");
+testiList.append(emptyTesti);

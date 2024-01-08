@@ -1,15 +1,14 @@
-console.log("Hello !");
-
+// import "jquery-ui/ui/widgets/draggable";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
+
+console.log("Index.js OK");
 
 //
 window.Webflow ||= [];
 window.Webflow.push(() => {
   ////////// DOTS ACTIVE
-
-  console.log("logggg");
 
   let panels = $("[panel-item]");
   let dots = $(".panel_dot_item");
@@ -106,16 +105,18 @@ window.Webflow.push(() => {
 });
 
 // DRAGGABLE
-$(function () {
-  $("#clever-internet").draggable({
-    snap: "#clever-internet-container",
-    snapMode: "inner",
-    snapTolerance: 30,
-  });
-  $("#sticker-developers").draggable({ containment: "#sticker-containment" });
-  $("#sticker-designers").draggable({ containment: "#sticker-containment" });
-  $("#sticker-thinkers").draggable({ containment: "#sticker-containment" });
-});
+// importer jquery and jquery-ui
+// window.Webflow ||= [];
+// window.Webflow.push(() => {
+//   $("#clever-internet").draggable({
+//     snap: "#clever-internet-container",
+//     snapMode: "inner",
+//     snapTolerance: 30,
+//   });
+//   $("#sticker-developers").draggable({ containment: "#sticker-containment" });
+//   $("#sticker-designers").draggable({ containment: "#sticker-containment" });
+//   $("#sticker-thinkers").draggable({ containment: "#sticker-containment" });
+// });
 
 $("#play-video").on("click", function (e) {
   var $video = $("#video");

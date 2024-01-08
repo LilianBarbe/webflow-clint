@@ -1,8 +1,6 @@
 {
   "dependencies": {
-    "esbuild": "^0.19.11",
     "gsap": "^3.12.4",
-    "jquery-ui": "^1.13.2",
     "swiper": "^11.0.5"
   },
   "name": "webflow-clint",
@@ -21,6 +19,7 @@
   "devDependencies": {
     "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.7",
-    "@babel/preset-env": "^7.23.7"
+    "@babel/preset-env": "^7.23.7",
+    "esbuild": "^0.19.11"
   }
 }
