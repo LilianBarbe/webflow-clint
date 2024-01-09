@@ -1,7 +1,21 @@
 // import "jquery-ui/ui/widgets/draggable";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import { applyButtonsBehav } from "./components/buttonBehaviors.js";
+applyButtonsBehav();
+
+import { revealAnimation } from "./components/revealAnim.js";
+revealAnimation();
+
 gsap.registerPlugin(ScrollTrigger);
+
+// dans un autre fichier .js
+import initializeLenisScroll from "./utils/lenisSetup.js";
+initializeLenisScroll();
+
+import { setAccordions } from "./components/accordion.js";
+setAccordions();
 
 console.log("Index.js OK");
 
@@ -18,7 +32,6 @@ window.Webflow.push(() => {
     dots.eq(index).addClass("is-active");
   }
   makeDotActive(0);
-
   dots.on("click", function () {
     let index = $(this).index();
     let scrollTo = panels.eq(index);
@@ -46,7 +59,6 @@ window.Webflow.push(() => {
   });
 
   ///// FADE OFF
-
   panels.each(function (index) {
     // Ne pas appliquer l'effet au dernier panel
     if (index !== panels.length - 1) {
@@ -72,19 +84,6 @@ window.Webflow.push(() => {
   let cmsItems = document.querySelectorAll("[panel-cms-item]");
   cmsItems.forEach((panel, index) => {
     panel.style.paddingTop = `${5 + index + 1}rem`;
-  });
-
-  /////// ACCORDION
-
-  $('[data-click="accordion"]').click(function () {
-    if (!$(this).is(".open")) {
-      $('[data-click="accordion"].open').each((i, item) => {
-        item.click();
-      });
-      $(this).addClass("open");
-    } else {
-      $(this).removeClass("open");
-    }
   });
 
   /////// EYES ANIMATION

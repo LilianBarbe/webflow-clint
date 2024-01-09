@@ -1,11 +1,21 @@
-console.log("Services !!");
+console.log("Services OK");
 import Swiper from "swiper";
 import "swiper/css";
 import { gsap } from "gsap";
 gsap.defaults({ duration: 0.25 });
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
+// dans un autre fichier .js
+import initializeLenisScroll from "./utils/lenisSetup.js";
+initializeLenisScroll();
+import { revealAnimation } from "./components/revealAnim.js";
+revealAnimation();
+import { setAccordions } from "./components/accordion.js";
+setAccordions();
+import { applyButtonsBehav } from "./components/buttonBehaviors.js";
+applyButtonsBehav();
 
+// TR SOLUTION
 $("[tr-scroll-toggle='component']").each(function (index) {
   // get elements
   let component = $(this);
@@ -191,6 +201,7 @@ $("[tr-scroll-toggle='component']").each(function (index) {
   });
 });
 
+// SWIPER
 document.addEventListener("DOMContentLoaded", function () {
   const swiperComponents = document.querySelectorAll("[swiper-component]");
   swiperComponents.forEach((component) => {
@@ -223,18 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       console.log(`Pas de swiper trouvé`);
     }
-  });
-});
-
-// BUTTON ANIMATION
-const newBtns = document.querySelectorAll('[btn-new="wrap"]');
-newBtns.forEach((btn) => {
-  btn.addEventListener("mouseout", function () {
-    this.classList.remove("is-hover");
-  });
-
-  btn.addEventListener("mouseover", function () {
-    this.classList.add("is-hover");
   });
 });
 
