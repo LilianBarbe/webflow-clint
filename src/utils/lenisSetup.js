@@ -1,17 +1,16 @@
 // lenisSetup.js
 import Lenis from "@studio-freight/lenis";
 
-const lenis = new Lenis();
+// LENIS SMOOTH SCROLL
 
-lenis.on("scroll", (e) => {
-  // console.log(e);
-});
+const lenis = new Lenis();
 
 function raf(time) {
   lenis.raf(time);
   requestAnimationFrame(raf);
 }
 
-export default function initializeLenisScroll() {
+export function initializeLenisScroll() {
   requestAnimationFrame(raf);
 }
+export { lenis };

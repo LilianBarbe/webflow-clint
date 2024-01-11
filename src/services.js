@@ -6,7 +6,7 @@ gsap.defaults({ duration: 0.25 });
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 // dans un autre fichier .js
-import initializeLenisScroll from "./utils/lenisSetup.js";
+import { initializeLenisScroll } from "./utils/lenisSetup.js";
 initializeLenisScroll();
 import { revealAnimation } from "./components/revealAnim.js";
 revealAnimation();
@@ -14,6 +14,8 @@ import { setAccordions } from "./components/accordion.js";
 setAccordions();
 import { applyButtonsBehav } from "./components/buttonBehaviors.js";
 applyButtonsBehav();
+import { navSetup } from "./utils/navSetup.js";
+navSetup();
 
 // TR SOLUTION
 $("[tr-scroll-toggle='component']").each(function (index) {

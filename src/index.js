@@ -1,6 +1,10 @@
 // import "jquery-ui/ui/widgets/draggable";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
+import { navSetup } from "./utils/navSetup.js";
+navSetup();
 
 import { applyButtonsBehav } from "./components/buttonBehaviors.js";
 applyButtonsBehav();
@@ -8,16 +12,14 @@ applyButtonsBehav();
 import { revealAnimation } from "./components/revealAnim.js";
 revealAnimation();
 
-gsap.registerPlugin(ScrollTrigger);
-
-// dans un autre fichier .js
-import initializeLenisScroll from "./utils/lenisSetup.js";
+import { initializeLenisScroll } from "./utils/lenisSetup.js";
 initializeLenisScroll();
 
 import { setAccordions } from "./components/accordion.js";
 setAccordions();
 
-console.log("Index.js OK");
+let date = new Date();
+console.log("Index.js OK" + " " + date.toLocaleString());
 
 //
 window.Webflow ||= [];
@@ -26,6 +28,25 @@ window.Webflow.push(() => {
 
   let panels = $("[panel-item]");
   let dots = $(".panel_dot_item");
+
+  const panelContents = document.querySelectorAll(".panel_content_inner");
+  panelContents.forEach((panelContent) => {
+    const panelTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: panelContent,
+        start: "10% center",
+        end: "10% center",
+      },
+    });
+
+    panelTl.from(panelContent.children, {
+      opacity: 0,
+      stagger: 0.2,
+      y: 50,
+      rotate: -1,
+      duration: 0.5,
+    });
+  });
 
   function makeDotActive(index) {
     dots.removeClass("is-active");
@@ -98,9 +119,9 @@ window.Webflow.push(() => {
 
   ///////// SUBMIT FORM NEWSLETTER
 
-  document.querySelector("[btn-submit]").addEventListener("click", () => {
-    document.querySelector('form[name="wf-form-Email-Form"]').submit();
-  });
+  // document.querySelector("[btn-submit]").addEventListener("click", () => {
+  //   document.querySelector('form[name="wf-form-Email-Form"]').submit();
+  // });
 });
 
 // DRAGGABLE

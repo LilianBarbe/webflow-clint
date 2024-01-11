@@ -9,8 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:index": "esbuild src/index.js --bundle --minify --outfile=dist/index.js --watch",
-    "build": "node build.js",
+    "build:index": "esbuild src/index.js --bundle --outfile=dist/index.js --watch",
     "build:services": "esbuild src/services.js --bundle --minify --outfile=dist/services.js --watch"
   },
   "keywords": [],
