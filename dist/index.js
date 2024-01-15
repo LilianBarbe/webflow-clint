@@ -6992,6 +6992,10 @@
   setAccordions();
   var date = /* @__PURE__ */ new Date();
   console.log("Index.js OK " + date.toLocaleString());
+  $(".span-wrapper").each(function(index) {
+    let relatedEl = $(".span-element").eq(index);
+    relatedEl.appendTo($(this));
+  });
   window.Webflow ||= [];
   window.Webflow.push(() => {
     let panels = $("[panel-item]");
@@ -7052,7 +7056,7 @@
             trigger: panel,
             markers: false,
             start: "20% top",
-            // DÃ©marre lorsque le bas du panel atteint le haut de l'Ã©cran
+            // Demarre lorsque le bas du panel atteint le haut de l'Ã©cran
             end: "bottom top",
             // Termine lorsque le bas du panel atteint le milieu de l'Ã©cran
             scrub: true,

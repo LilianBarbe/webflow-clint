@@ -21,6 +21,12 @@ setAccordions();
 let date = new Date();
 console.log("Index.js OK" + " " + date.toLocaleString());
 
+// HEADER
+$(".span-wrapper").each(function (index) {
+  let relatedEl = $(".span-element").eq(index);
+  relatedEl.appendTo($(this));
+});
+
 //
 window.Webflow ||= [];
 window.Webflow.push(() => {
@@ -90,7 +96,7 @@ window.Webflow.push(() => {
         scrollTrigger: {
           trigger: panel,
           markers: false,
-          start: "20% top", // DÃ©marre lorsque le bas du panel atteint le haut de l'Ã©cran
+          start: "20% top", // Demarre lorsque le bas du panel atteint le haut de l'Ã©cran
           end: "bottom top", // Termine lorsque le bas du panel atteint le milieu de l'Ã©cran
           scrub: true, // Permet un changement progressif de l'opacitÃ©
           onLeaveBack: () => {},
