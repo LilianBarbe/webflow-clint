@@ -83,7 +83,6 @@ window.addEventListener("resize", () => {
 window.Webflow ||= [];
 window.Webflow.push(() => {
   ////////// DOTS ACTIVE
-
   let panels = $("[panel-item]");
   let dots = $(".panel_dot_item");
 
@@ -159,21 +158,10 @@ window.Webflow.push(() => {
   });
 
   ////////////// STACKING PANELS
-
   // let cmsItems = document.querySelectorAll("[panel-cms-item]");
   // cmsItems.forEach((panel) => {
   //   panel.style.paddingTop = navHeight;
   // });
-
-  /////// EYES ANIMATION
-
-  $("[newsletter-cms-item]").on("mouseenter", () => {
-    $(".page_cursor_dot").addClass("is-here");
-  });
-
-  $("[newsletter-cms-item]").on("mouseleave", () => {
-    $(".page_cursor_dot").removeClass("is-here");
-  });
 
   ///////// SUBMIT FORM NEWSLETTER
 
@@ -182,28 +170,14 @@ window.Webflow.push(() => {
   // });
 });
 
-// DRAGGABLE
-// importer jquery and jquery-ui
-// window.Webflow ||= [];
-// window.Webflow.push(() => {
-//   $("#clever-internet").draggable({
-//     snap: "#clever-internet-container",
-//     snapMode: "inner",
-//     snapTolerance: 30,
-//   });
-//   $("#sticker-developers").draggable({ containment: "#sticker-containment" });
-//   $("#sticker-designers").draggable({ containment: "#sticker-containment" });
-//   $("#sticker-thinkers").draggable({ containment: "#sticker-containment" });
+// $("#play-video").on("click", function (e) {
+//   var $video = $("#video");
+//   src = $video.attr("src");
+//   $video.attr("src", src + "?autoplay=1");
 // });
 
-$("#play-video").on("click", function (e) {
-  var $video = $("#video");
-  src = $video.attr("src");
-  $video.attr("src", src + "?autoplay=1");
-});
-
-$("#pause-video").on("click", function (e) {
-  var $video = $("#video");
-  src = $video.attr("src");
-  $video.attr("src", src + "?autoplay=0");
-});
+// $("#pause-video").on("click", function (e) {
+//   var $video = $("#video");
+//   src = $video.attr("src");
+//   $video.attr("src", src + "?autoplay=0");
+// });

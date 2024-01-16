@@ -28,23 +28,25 @@ if (window.innerWidth <= 991) {
   });
 }
 
-// Création de l'animation dropdown
-let tlDropdown = gsap.timeline({ paused: true });
-gsap.set(".dropdown_inner_wrap", { xPercent: -40 });
+if (window.innerWidth > 991) {
+  // Création de l'animation dropdown
+  let tlDropdown = gsap.timeline({ paused: true });
+  gsap.set(".dropdown_inner_wrap", { xPercent: -40 });
 
-// Animation
-tlDropdown.from(".dropdown_inner_wrap", {
-  y: 20,
-  opacity: 0,
-  duration: 0.3,
-});
-
-// Événement mouseenter
-document
-  .querySelector("[dropdown-link]")
-  .addEventListener("mouseenter", function () {
-    tlDropdown.play();
+  // Animation
+  tlDropdown.from(".dropdown_inner_wrap", {
+    y: 20,
+    opacity: 0,
+    duration: 0.3,
   });
+
+  // Événement mouseenter
+  document
+    .querySelector("[dropdown-link]")
+    .addEventListener("mouseenter", function () {
+      tlDropdown.play();
+    });
+}
 
 export function navSetup() {
   function handleScrollDown() {
