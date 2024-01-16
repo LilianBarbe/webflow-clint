@@ -6880,16 +6880,18 @@
       }
     });
   }
-  var tlDropdown = gsapWithCSS.timeline({ paused: true });
-  gsapWithCSS.set(".dropdown_inner_wrap", { xPercent: -40 });
-  tlDropdown.from(".dropdown_inner_wrap", {
-    y: 20,
-    opacity: 0,
-    duration: 0.3
-  });
-  document.querySelector("[dropdown-link]").addEventListener("mouseenter", function() {
-    tlDropdown.play();
-  });
+  if (window.innerWidth > 991) {
+    let tlDropdown = gsapWithCSS.timeline({ paused: true });
+    gsapWithCSS.set(".dropdown_inner_wrap", { xPercent: -40 });
+    tlDropdown.from(".dropdown_inner_wrap", {
+      y: 20,
+      opacity: 0,
+      duration: 0.3
+    });
+    document.querySelector("[dropdown-link]").addEventListener("mouseenter", function() {
+      tlDropdown.play();
+    });
+  }
   function navSetup() {
     function handleScrollDown() {
       gsapWithCSS.to(navWrap, { y: -navHeight - 1 });
@@ -7116,22 +7118,6 @@
         });
       }
     });
-    $("[newsletter-cms-item]").on("mouseenter", () => {
-      $(".page_cursor_dot").addClass("is-here");
-    });
-    $("[newsletter-cms-item]").on("mouseleave", () => {
-      $(".page_cursor_dot").removeClass("is-here");
-    });
-  });
-  $("#play-video").on("click", function(e) {
-    var $video = $("#video");
-    src = $video.attr("src");
-    $video.attr("src", src + "?autoplay=1");
-  });
-  $("#pause-video").on("click", function(e) {
-    var $video = $("#video");
-    src = $video.attr("src");
-    $video.attr("src", src + "?autoplay=0");
   });
 })();
 /*! Bundled license information:
