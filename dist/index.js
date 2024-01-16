@@ -6866,24 +6866,29 @@
   var navHeight = navWrap.offsetHeight;
   var menuBtnMobile = document.querySelector(".nav_menu_icon");
   var menuMobile = document.querySelector("[menu-links]");
-  $(window).on("resize", function() {
-    var win = $(this);
-    if (win.width() <= 991) {
-      const showMenuMobile = gsapWithCSS.timeline({ paused: true });
-      showMenuMobile.set(menuMobile, { display: "flex" });
-      showMenuMobile.from(menuMobile, { x: "100%" });
-      showMenuMobile.from(menuMobile.children, { opacity: 0, stagger: 0.2 }, 0.2);
-      menuBtnMobile.addEventListener("click", function() {
-        if (showMenuMobile.progress() === 0) {
-          showMenuMobile.play();
-          lenis.stop();
-        } else {
-          showMenuMobile.timeScale(1.5);
-          showMenuMobile.reverse();
-          lenis.start();
-        }
-      });
-    }
+  if (window.innerWidth <= 991) {
+    const showMenuMobile = gsapWithCSS.timeline({ paused: true });
+    showMenuMobile.set(menuMobile, { display: "flex" });
+    showMenuMobile.from(menuMobile, { x: "100%" });
+    showMenuMobile.from(menuMobile.children, { opacity: 0, stagger: 0.2 }, 0.2);
+    menuBtnMobile.addEventListener("click", function() {
+      if (showMenuMobile.progress() === 0) {
+        showMenuMobile.play();
+      } else {
+        showMenuMobile.timeScale(1.5);
+        showMenuMobile.reverse();
+      }
+    });
+  }
+  var tlDropdown = gsapWithCSS.timeline({ paused: true });
+  gsapWithCSS.set(".dropdown_inner_wrap", { xPercent: -40 });
+  tlDropdown.from(".dropdown_inner_wrap", {
+    y: 20,
+    opacity: 0,
+    duration: 0.3
+  });
+  document.querySelector("[dropdown-link]").addEventListener("mouseenter", function() {
+    tlDropdown.play();
   });
   function navSetup() {
     function handleScrollDown() {
@@ -6996,6 +7001,48 @@
     let relatedEl = $(".span-element").eq(index);
     relatedEl.appendTo($(this));
   });
+  var modalDev = document.querySelector("[modal-dev]");
+  if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
+    modalDev.style.display = "flex";
+  } else {
+    modalDev.style.display = "none";
+  }
+  var panneaux = document.querySelectorAll("[panel-cms-item]");
+  var innerPanneaux = document.querySelectorAll("[panel-bg]");
+  var panelWrap = document.querySelectorAll(".panel_dot_wrap");
+  var panelDotList = document.querySelector("[dot-list]");
+  var mainContentPanneaux = document.querySelectorAll(
+    ".panel_content_main_wrap"
+  );
+  var gapPanneaux = `calc(100vh - ${navHeight}px - 1rem)`;
+  var resizePanneaux = function(...items) {
+    items.forEach((itemArray) => {
+      itemArray.forEach((item) => {
+        item.style.height = gapPanneaux;
+      });
+    });
+  };
+  var resizePanneaux2 = function(...items) {
+    items.forEach((itemArray) => {
+      itemArray.forEach((item) => {
+        item.style.height = `calc(100vh)`;
+      });
+    });
+  };
+  if (window.innerWidth > 991) {
+    resizePanneaux(mainContentPanneaux);
+    window.addEventListener("resize", () => {
+      resizePanneaux(mainContentPanneaux);
+    });
+  }
+  resizePanneaux(innerPanneaux);
+  resizePanneaux2(panneaux, panelWrap);
+  panelDotList.style.paddingTop = `${navHeight}px`;
+  window.addEventListener("resize", () => {
+    resizePanneaux(innerPanneaux);
+    resizePanneaux2(panneaux, panelWrap);
+    panelDotList.style.paddingTop = `${navHeight}px`;
+  });
   window.Webflow ||= [];
   window.Webflow.push(() => {
     let panels = $("[panel-item]");
@@ -7005,7 +7052,7 @@
       const panelTl = gsapWithCSS.timeline({
         scrollTrigger: {
           trigger: panelContent,
-          start: "10% center",
+          start: "10% 80%",
           end: "10% center"
         }
       });
@@ -7068,10 +7115,6 @@
           }
         });
       }
-    });
-    let cmsItems = document.querySelectorAll("[panel-cms-item]");
-    cmsItems.forEach((panel, index) => {
-      panel.style.paddingTop = `${5 + index + 1}rem`;
     });
     $("[newsletter-cms-item]").on("mouseenter", () => {
       $(".page_cursor_dot").addClass("is-here");

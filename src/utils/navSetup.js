@@ -6,29 +6,45 @@ import { lenis } from "../utils/lenisSetup.js";
 let lastScrollTop = 0;
 const navWrap = document.querySelector(".nav_wrap");
 const navBtnChange = document.querySelector(".nav_btn_change");
-const navHeight = navWrap.offsetHeight;
+export const navHeight = navWrap.offsetHeight;
 const menuBtnMobile = document.querySelector(".nav_menu_icon");
 const menuMobile = document.querySelector("[menu-links]");
 
-$(window).on("resize", function () {
-  var win = $(this); // ceci fait référence à la fenêtre
-  if (win.width() <= 991) {
-    const showMenuMobile = gsap.timeline({ paused: true });
-    showMenuMobile.set(menuMobile, { display: "flex" });
-    showMenuMobile.from(menuMobile, { x: "100%" });
-    showMenuMobile.from(menuMobile.children, { opacity: 0, stagger: 0.2 }, 0.2);
-    menuBtnMobile.addEventListener("click", function () {
-      if (showMenuMobile.progress() === 0) {
-        showMenuMobile.play();
-        lenis.stop();
-      } else {
-        showMenuMobile.timeScale(1.5);
-        showMenuMobile.reverse();
-        lenis.start();
-      }
-    });
-  }
+if (window.innerWidth <= 991) {
+  const showMenuMobile = gsap.timeline({ paused: true });
+  showMenuMobile.set(menuMobile, { display: "flex" });
+  showMenuMobile.from(menuMobile, { x: "100%" });
+  showMenuMobile.from(menuMobile.children, { opacity: 0, stagger: 0.2 }, 0.2);
+
+  menuBtnMobile.addEventListener("click", function () {
+    if (showMenuMobile.progress() === 0) {
+      showMenuMobile.play();
+      // lenis.stop();
+    } else {
+      showMenuMobile.timeScale(1.5);
+      showMenuMobile.reverse();
+      // lenis.start();
+    }
+  });
+}
+
+// Création de l'animation dropdown
+let tlDropdown = gsap.timeline({ paused: true });
+gsap.set(".dropdown_inner_wrap", { xPercent: -40 });
+
+// Animation
+tlDropdown.from(".dropdown_inner_wrap", {
+  y: 20,
+  opacity: 0,
+  duration: 0.3,
 });
+
+// Événement mouseenter
+document
+  .querySelector("[dropdown-link]")
+  .addEventListener("mouseenter", function () {
+    tlDropdown.play();
+  });
 
 export function navSetup() {
   function handleScrollDown() {

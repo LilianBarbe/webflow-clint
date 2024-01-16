@@ -27,6 +27,58 @@ $(".span-wrapper").each(function (index) {
   relatedEl.appendTo($(this));
 });
 
+// SITE EN DEV
+const modalDev = document.querySelector("[modal-dev]");
+if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
+  modalDev.style.display = "flex";
+} else {
+  modalDev.style.display = "none";
+}
+
+// HEIGHT PANEL
+import { navHeight } from "./utils/navSetup.js";
+const panneaux = document.querySelectorAll("[panel-cms-item]");
+const innerPanneaux = document.querySelectorAll("[panel-bg]");
+const panelWrap = document.querySelectorAll(".panel_dot_wrap");
+const panelDotList = document.querySelector("[dot-list]");
+const mainContentPanneaux = document.querySelectorAll(
+  ".panel_content_main_wrap"
+);
+const gapPanneaux = `calc(100vh - ${navHeight}px - 1rem)`;
+
+const resizePanneaux = function (...items) {
+  items.forEach((itemArray) => {
+    itemArray.forEach((item) => {
+      item.style.height = gapPanneaux;
+    });
+  });
+};
+
+const resizePanneaux2 = function (...items) {
+  items.forEach((itemArray) => {
+    itemArray.forEach((item) => {
+      item.style.height = `calc(100vh)`;
+    });
+  });
+};
+
+// Ajouter mainContentPanneaux à la fonction de redimensionnement
+if (window.innerWidth > 991) {
+  resizePanneaux(mainContentPanneaux);
+  window.addEventListener("resize", () => {
+    resizePanneaux(mainContentPanneaux);
+  });
+}
+resizePanneaux(innerPanneaux);
+resizePanneaux2(panneaux, panelWrap);
+panelDotList.style.paddingTop = `${navHeight}px`;
+// Ajouter un écouteur d'événements pour redimensionner les panneaux lors du redimensionnement de la fenêtre
+window.addEventListener("resize", () => {
+  resizePanneaux(innerPanneaux);
+  resizePanneaux2(panneaux, panelWrap);
+  panelDotList.style.paddingTop = `${navHeight}px`;
+});
+
 //
 window.Webflow ||= [];
 window.Webflow.push(() => {
@@ -40,7 +92,7 @@ window.Webflow.push(() => {
     const panelTl = gsap.timeline({
       scrollTrigger: {
         trigger: panelContent,
-        start: "10% center",
+        start: "10% 80%",
         end: "10% center",
       },
     });
@@ -108,10 +160,10 @@ window.Webflow.push(() => {
 
   ////////////// STACKING PANELS
 
-  let cmsItems = document.querySelectorAll("[panel-cms-item]");
-  cmsItems.forEach((panel, index) => {
-    panel.style.paddingTop = `${5 + index + 1}rem`;
-  });
+  // let cmsItems = document.querySelectorAll("[panel-cms-item]");
+  // cmsItems.forEach((panel) => {
+  //   panel.style.paddingTop = navHeight;
+  // });
 
   /////// EYES ANIMATION
 
