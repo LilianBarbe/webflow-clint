@@ -6589,6 +6589,138 @@
   };
   _getGSAP3() && gsap3.registerPlugin(ScrollTrigger2);
 
+  // src/components/accordion.js
+  function setAccordions() {
+    $('[data-click="accordion"]').click(function() {
+      if (!$(this).is(".open")) {
+        $('[data-click="accordion"].open').each((i, item) => {
+          item.click();
+        });
+        $(this).addClass("open");
+      } else {
+        $(this).removeClass("open");
+      }
+    });
+  }
+
+  // src/utils/navSetup.js
+  gsapWithCSS.registerPlugin(ScrollTrigger2);
+  var lastScrollTop = 0;
+  var navWrap = document.querySelector(".nav_wrap");
+  var navBtnChange = document.querySelector(".nav_btn_change");
+  var navHeight = navWrap.offsetHeight;
+  var menuBtnMobile = document.querySelector(".nav_menu_icon");
+  var menuMobile = document.querySelector("[menu-links]");
+  if (window.innerWidth <= 991) {
+    const showMenuMobile = gsapWithCSS.timeline({ paused: true });
+    showMenuMobile.set(menuMobile, { display: "flex" });
+    showMenuMobile.from(menuMobile, { x: "100%" });
+    showMenuMobile.from(menuMobile.children, { opacity: 0, stagger: 0.2 }, 0.2);
+    menuBtnMobile.addEventListener("click", function() {
+      if (showMenuMobile.progress() === 0) {
+        showMenuMobile.play();
+      } else {
+        showMenuMobile.timeScale(1.5);
+        showMenuMobile.reverse();
+      }
+    });
+  }
+  if (window.innerWidth > 991) {
+    let tlDropdown = gsapWithCSS.timeline({ paused: true });
+    gsapWithCSS.set(".dropdown_inner_wrap", { xPercent: -40 });
+    tlDropdown.from(".dropdown_inner_wrap", {
+      y: 20,
+      opacity: 0,
+      duration: 0.3
+    });
+    document.querySelector("[dropdown-link]").addEventListener("mouseenter", function() {
+      tlDropdown.play();
+    });
+  }
+  function navSetup() {
+    function handleScrollDown() {
+      gsapWithCSS.to(navWrap, { y: -navHeight - 1 });
+      gsapWithCSS.to(navBtnChange, {
+        y: navHeight + 1,
+        onStart: function() {
+          tlLogo.restart();
+        }
+      });
+    }
+    function handleScrollUp() {
+      gsapWithCSS.to(navWrap, {
+        y: 0,
+        onComplete: function() {
+        }
+      });
+      gsapWithCSS.to(navBtnChange, {
+        y: 0
+      });
+    }
+    tlLogo.play();
+    window.addEventListener(
+      "scroll",
+      function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+          handleScrollDown();
+        } else {
+          handleScrollUp();
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      },
+      false
+    );
+  }
+  var logo = navWrap.querySelector(".nav_logo_item");
+  var lettres = logo.childNodes;
+  var tlLogo = gsapWithCSS.timeline({ paused: true });
+  tlLogo.from(lettres, { scaleY: 2, y: 30, stagger: 0.08, ease: "power2.out" });
+
+  // src/components/buttonBehaviors.js
+  function applyButtonsBehav() {
+    const btns = document.querySelectorAll(".btn_main_wrap");
+    btns.forEach((button) => {
+      button.addEventListener("mouseenter", function(e) {
+        var x = e.clientX - button.getBoundingClientRect().left;
+        var y = e.clientY - button.getBoundingClientRect().top;
+        var span = button.querySelector("span");
+        span.style.top = y + "px";
+        span.style.left = x + "px";
+      });
+      button.addEventListener("mouseout", function(e) {
+        var x = e.clientX - button.getBoundingClientRect().left;
+        var y = e.clientY - button.getBoundingClientRect().top;
+        var span = button.querySelector("span");
+        span.style.top = y + "px";
+        span.style.left = x + "px";
+      });
+    });
+  }
+
+  // src/components/revealAnim.js
+  function revealAnimation() {
+    gsapWithCSS.utils.toArray("[reveal]").forEach(function(element) {
+      gsapWithCSS.fromTo(
+        element,
+        { opacity: 0, scaleY: 1.5, y: 110 },
+        {
+          opacity: 1,
+          scaleY: 1,
+          ease: "Power2.easeOut",
+          y: 0,
+          duration: 0.3,
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            // Démarre l'animation quand le haut de l'élément atteint 80% de la fenêtre
+            toggleActions: "play none none none"
+          }
+        }
+      );
+    });
+  }
+
   // node_modules/@studio-freight/lenis/dist/lenis.mjs
   function t(t2, e, i) {
     return Math.max(t2, Math.min(e, i));
@@ -6858,157 +6990,15 @@
     requestAnimationFrame(raf);
   }
 
-  // src/utils/navSetup.js
-  gsapWithCSS.registerPlugin(ScrollTrigger2);
-  var lastScrollTop = 0;
-  var navWrap = document.querySelector(".nav_wrap");
-  var navBtnChange = document.querySelector(".nav_btn_change");
-  var navHeight = navWrap.offsetHeight;
-  var menuBtnMobile = document.querySelector(".nav_menu_icon");
-  var menuMobile = document.querySelector("[menu-links]");
-  if (window.innerWidth <= 991) {
-    const showMenuMobile = gsapWithCSS.timeline({ paused: true });
-    showMenuMobile.set(menuMobile, { display: "flex" });
-    showMenuMobile.from(menuMobile, { x: "100%" });
-    showMenuMobile.from(menuMobile.children, { opacity: 0, stagger: 0.2 }, 0.2);
-    menuBtnMobile.addEventListener("click", function() {
-      if (showMenuMobile.progress() === 0) {
-        showMenuMobile.play();
-      } else {
-        showMenuMobile.timeScale(1.5);
-        showMenuMobile.reverse();
-      }
-    });
-  }
-  if (window.innerWidth > 991) {
-    let tlDropdown = gsapWithCSS.timeline({ paused: true });
-    gsapWithCSS.set(".dropdown_inner_wrap", { xPercent: -40 });
-    tlDropdown.from(".dropdown_inner_wrap", {
-      y: 20,
-      opacity: 0,
-      duration: 0.3
-    });
-    document.querySelector("[dropdown-link]").addEventListener("mouseenter", function() {
-      tlDropdown.play();
-    });
-  }
-  function navSetup() {
-    function handleScrollDown() {
-      gsapWithCSS.to(navWrap, { y: -navHeight - 1 });
-      gsapWithCSS.to(navBtnChange, {
-        y: navHeight + 1,
-        onStart: function() {
-          tlLogo.restart();
-        }
-      });
-    }
-    function handleScrollUp() {
-      gsapWithCSS.to(navWrap, {
-        y: 0,
-        onComplete: function() {
-        }
-      });
-      gsapWithCSS.to(navBtnChange, {
-        y: 0
-      });
-    }
-    tlLogo.play();
-    window.addEventListener(
-      "scroll",
-      function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop > lastScrollTop) {
-          handleScrollDown();
-        } else {
-          handleScrollUp();
-        }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-      },
-      false
-    );
-  }
-  var logo = navWrap.querySelector(".nav_logo_item");
-  var lettres = logo.childNodes;
-  var tlLogo = gsapWithCSS.timeline({ paused: true });
-  tlLogo.from(lettres, { scaleY: 2, y: 30, stagger: 0.08, ease: "power2.out" });
-
-  // src/components/buttonBehaviors.js
-  function applyButtonsBehav() {
-    const btns = document.querySelectorAll(".btn_main_wrap");
-    btns.forEach((button) => {
-      button.addEventListener("mouseenter", function(e) {
-        var x = e.clientX - button.getBoundingClientRect().left;
-        var y = e.clientY - button.getBoundingClientRect().top;
-        var span = button.querySelector("span");
-        span.style.top = y + "px";
-        span.style.left = x + "px";
-      });
-      button.addEventListener("mouseout", function(e) {
-        var x = e.clientX - button.getBoundingClientRect().left;
-        var y = e.clientY - button.getBoundingClientRect().top;
-        var span = button.querySelector("span");
-        span.style.top = y + "px";
-        span.style.left = x + "px";
-      });
-    });
-  }
-
-  // src/components/revealAnim.js
-  function revealAnimation() {
-    gsapWithCSS.utils.toArray("[reveal]").forEach(function(element) {
-      gsapWithCSS.fromTo(
-        element,
-        { opacity: 0, scaleY: 1.5, y: 110 },
-        {
-          opacity: 1,
-          scaleY: 1,
-          ease: "Power2.easeOut",
-          y: 0,
-          duration: 0.3,
-          scrollTrigger: {
-            trigger: element,
-            start: "top 80%",
-            // Démarre l'animation quand le haut de l'élément atteint 80% de la fenêtre
-            toggleActions: "play none none none"
-          }
-        }
-      );
-    });
-  }
-
-  // src/components/accordion.js
-  function setAccordions() {
-    $('[data-click="accordion"]').click(function() {
-      if (!$(this).is(".open")) {
-        $('[data-click="accordion"].open').each((i, item) => {
-          item.click();
-        });
-        $(this).addClass("open");
-      } else {
-        $(this).removeClass("open");
-      }
-    });
-  }
-
   // src/index.js
+  console.log(/* @__PURE__ */ new Date());
   gsapWithCSS.registerPlugin(ScrollTrigger2);
   navSetup();
   applyButtonsBehav();
   revealAnimation();
   initializeLenisScroll();
   setAccordions();
-  var date = /* @__PURE__ */ new Date();
-  console.log("Index.js OK " + date.toLocaleString());
-  $(".span-wrapper").each(function(index) {
-    let relatedEl = $(".span-element").eq(index);
-    relatedEl.appendTo($(this));
-  });
   var modalDev = document.querySelector("[modal-dev]");
-  if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
-    modalDev.style.display = "flex";
-  } else {
-    modalDev.style.display = "none";
-  }
   var panneaux = document.querySelectorAll("[panel-cms-item]");
   var innerPanneaux = document.querySelectorAll("[panel-bg]");
   var panelWrap = document.querySelectorAll(".panel_dot_wrap");
@@ -7017,6 +7007,22 @@
     ".panel_content_main_wrap"
   );
   var gapPanneaux = `calc(100vh - ${navHeight}px - 1rem)`;
+  var panels = $("[panel-item]");
+  var dots = $(".panel_dot_item");
+  var panelContents = document.querySelectorAll(".panel_content_inner");
+  var componentContent = document.querySelector(".compens");
+  var decalage = `-${navHeight / 16}rem`;
+  componentContent.style.marginBottom = decalage;
+  console.log(componentContent);
+  if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
+    modalDev.style.display = "flex";
+  } else {
+    modalDev.style.display = "none";
+  }
+  $(".span-wrapper").each(function(index) {
+    let relatedEl = $(".span-element").eq(index);
+    relatedEl.appendTo($(this));
+  });
   var resizePanneaux = function(...items) {
     items.forEach((itemArray) => {
       itemArray.forEach((item) => {
@@ -7047,9 +7053,6 @@
   });
   window.Webflow ||= [];
   window.Webflow.push(() => {
-    let panels = $("[panel-item]");
-    let dots = $(".panel_dot_item");
-    const panelContents = document.querySelectorAll(".panel_content_inner");
     panelContents.forEach((panelContent) => {
       const panelTl = gsapWithCSS.timeline({
         scrollTrigger: {

@@ -7,6 +7,7 @@ import { applyButtonsBehav } from "./components/buttonBehaviors.js";
 import { revealAnimation } from "./components/revealAnim.js";
 import { initializeLenisScroll } from "./utils/lenisSetup.js";
 import { navHeight } from "./utils/navSetup.js";
+console.log(new Date());
 
 // construct
 gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +16,6 @@ applyButtonsBehav();
 revealAnimation();
 initializeLenisScroll();
 setAccordions();
-console.log("Index.js OK" + " " + date.toLocaleString());
 
 // const & let
 let date = new Date();
@@ -31,8 +31,14 @@ const gapPanneaux = `calc(100vh - ${navHeight}px - 1rem)`;
 let panels = $("[panel-item]");
 let dots = $(".panel_dot_item");
 const panelContents = document.querySelectorAll(".panel_content_inner");
+const componentContent = document.querySelector(".compens");
+let decalage = `-${navHeight / 16}` + "rem";
 
 // functions
+
+/// decalage offres
+componentContent.style.marginBottom = decalage;
+console.log(componentContent);
 
 //// site en dev
 if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
