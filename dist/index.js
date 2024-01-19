@@ -6991,7 +6991,6 @@
   }
 
   // src/index.js
-  console.log(/* @__PURE__ */ new Date());
   gsapWithCSS.registerPlugin(ScrollTrigger2);
   navSetup();
   applyButtonsBehav();
@@ -7013,7 +7012,6 @@
   var componentContent = document.querySelector(".compens");
   var decalage = `-${navHeight / 16}rem`;
   componentContent.style.marginBottom = decalage;
-  console.log(componentContent);
   if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
     modalDev.style.display = "flex";
   } else {
