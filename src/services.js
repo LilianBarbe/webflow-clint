@@ -1,23 +1,43 @@
-console.log("Services OK");
+// import
 import Swiper from "swiper";
 import "swiper/css";
 import { gsap } from "gsap";
-gsap.defaults({ duration: 0.25 });
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-// dans un autre fichier .js
 import { initializeLenisScroll } from "./utils/lenisSetup.js";
-initializeLenisScroll();
 import { revealAnimation } from "./components/revealAnim.js";
-revealAnimation();
 import { setAccordions } from "./components/accordion.js";
-setAccordions();
 import { applyButtonsBehav } from "./components/buttonBehaviors.js";
-applyButtonsBehav();
 import { navSetup } from "./utils/navSetup.js";
+
+// construct
+gsap.defaults({ duration: 0.25 });
+gsap.registerPlugin(ScrollTrigger);
+initializeLenisScroll();
+revealAnimation();
+setAccordions();
+applyButtonsBehav();
 navSetup();
 
-// TR SOLUTION
+// const & let
+const modalDev = document.querySelector("[modal-dev]");
+const modalWrap = document.querySelector('[modal="wrap"]');
+const modalQuitButton = modalWrap.querySelector('[modal="button"]');
+const modalBg = modalWrap.querySelector('[modal="bg"]');
+const modalCard = modalWrap.querySelector('[modal="card"]');
+const docButton = document.querySelector('[modal="want"]');
+const emptyTesti = document.querySelector("[testi-empty]");
+const testiList = document.querySelector("[testi-list]");
+
+// functions
+
+//// site en dev
+if (document.currentScript.src === "http://127.0.0.1:5500/dist/services.js") {
+  modalDev.style.display = "flex";
+} else {
+  modalDev.style.display = "none";
+}
+
+//// services
 $("[tr-scroll-toggle='component']").each(function (index) {
   // get elements
   let component = $(this);
@@ -239,13 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// MODAL
-const modalWrap = document.querySelector('[modal="wrap"]');
-const modalQuitButton = modalWrap.querySelector('[modal="button"]');
-const modalBg = modalWrap.querySelector('[modal="bg"]');
-const modalCard = modalWrap.querySelector('[modal="card"]');
-const docButton = document.querySelector('[modal="want"]');
-
+// modal télécharger
 const openModal = () => {
   modalWrap.classList.remove("display-none");
   document.body.style.overflow = "hidden";
@@ -274,7 +288,5 @@ docButton.addEventListener("click", openModal);
 modalQuitButton.addEventListener("click", closeModal);
 modalBg.addEventListener("click", closeModal);
 
-// EMPTY TESTIMONIAL
-const emptyTesti = document.querySelector("[testi-empty]");
-const testiList = document.querySelector("[testi-list]");
+// empty testimonial
 testiList.append(emptyTesti);

@@ -1,7 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
-import { lenis } from "../utils/lenisSetup.js";
 
 let lastScrollTop = 0;
 const navWrap = document.querySelector(".nav_wrap");
@@ -88,7 +87,8 @@ export function navSetup() {
     false
   );
 }
-// LOGO SVG
+
+// LOGO ANIMATION
 const logo = navWrap.querySelector(".nav_logo_item");
 const lettres = logo.childNodes;
 const tlLogo = gsap.timeline({ paused: true });

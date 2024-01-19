@@ -1,42 +1,25 @@
-// import "jquery-ui/ui/widgets/draggable";
+// import
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-
-import { navSetup } from "./utils/navSetup.js";
-navSetup();
-
-import { applyButtonsBehav } from "./components/buttonBehaviors.js";
-applyButtonsBehav();
-
-import { revealAnimation } from "./components/revealAnim.js";
-revealAnimation();
-
-import { initializeLenisScroll } from "./utils/lenisSetup.js";
-initializeLenisScroll();
-
 import { setAccordions } from "./components/accordion.js";
-setAccordions();
+import { navSetup } from "./utils/navSetup.js";
+import { applyButtonsBehav } from "./components/buttonBehaviors.js";
+import { revealAnimation } from "./components/revealAnim.js";
+import { initializeLenisScroll } from "./utils/lenisSetup.js";
+import { navHeight } from "./utils/navSetup.js";
 
-let date = new Date();
+// construct
+gsap.registerPlugin(ScrollTrigger);
+navSetup();
+applyButtonsBehav();
+revealAnimation();
+initializeLenisScroll();
+setAccordions();
 console.log("Index.js OK" + " " + date.toLocaleString());
 
-// HEADER
-$(".span-wrapper").each(function (index) {
-  let relatedEl = $(".span-element").eq(index);
-  relatedEl.appendTo($(this));
-});
-
-// SITE EN DEV
+// const & let
+let date = new Date();
 const modalDev = document.querySelector("[modal-dev]");
-if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
-  modalDev.style.display = "flex";
-} else {
-  modalDev.style.display = "none";
-}
-
-// HEIGHT PANEL
-import { navHeight } from "./utils/navSetup.js";
 const panneaux = document.querySelectorAll("[panel-cms-item]");
 const innerPanneaux = document.querySelectorAll("[panel-bg]");
 const panelWrap = document.querySelectorAll(".panel_dot_wrap");
@@ -45,7 +28,26 @@ const mainContentPanneaux = document.querySelectorAll(
   ".panel_content_main_wrap"
 );
 const gapPanneaux = `calc(100vh - ${navHeight}px - 1rem)`;
+let panels = $("[panel-item]");
+let dots = $(".panel_dot_item");
+const panelContents = document.querySelectorAll(".panel_content_inner");
 
+// functions
+
+//// site en dev
+if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
+  modalDev.style.display = "flex";
+} else {
+  modalDev.style.display = "none";
+}
+
+//// header
+$(".span-wrapper").each(function (index) {
+  let relatedEl = $(".span-element").eq(index);
+  relatedEl.appendTo($(this));
+});
+
+//// height panels
 const resizePanneaux = function (...items) {
   items.forEach((itemArray) => {
     itemArray.forEach((item) => {
@@ -62,7 +64,6 @@ const resizePanneaux2 = function (...items) {
   });
 };
 
-// Ajouter mainContentPanneaux à la fonction de redimensionnement
 if (window.innerWidth > 991) {
   resizePanneaux(mainContentPanneaux);
   window.addEventListener("resize", () => {
@@ -72,21 +73,16 @@ if (window.innerWidth > 991) {
 resizePanneaux(innerPanneaux);
 resizePanneaux2(panneaux, panelWrap);
 panelDotList.style.paddingTop = `${navHeight}px`;
-// Ajouter un écouteur d'événements pour redimensionner les panneaux lors du redimensionnement de la fenêtre
+
 window.addEventListener("resize", () => {
   resizePanneaux(innerPanneaux);
   resizePanneaux2(panneaux, panelWrap);
   panelDotList.style.paddingTop = `${navHeight}px`;
 });
 
-//
+//// dots active
 window.Webflow ||= [];
 window.Webflow.push(() => {
-  ////////// DOTS ACTIVE
-  let panels = $("[panel-item]");
-  let dots = $(".panel_dot_item");
-
-  const panelContents = document.querySelectorAll(".panel_content_inner");
   panelContents.forEach((panelContent) => {
     const panelTl = gsap.timeline({
       scrollTrigger: {
@@ -136,7 +132,7 @@ window.Webflow.push(() => {
     });
   });
 
-  ///// FADE OFF
+  //// fade off panels
   panels.each(function (index) {
     // Ne pas appliquer l'effet au dernier panel
     if (index !== panels.length - 1) {
