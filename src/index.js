@@ -7,7 +7,6 @@ import { applyButtonsBehav } from "./components/buttonBehaviors.js";
 import { revealAnimation } from "./components/revealAnim.js";
 import { initializeLenisScroll } from "./utils/lenisSetup.js";
 import { navHeight } from "./utils/navSetup.js";
-console.log(new Date());
 
 // construct
 gsap.registerPlugin(ScrollTrigger);
@@ -38,7 +37,6 @@ let decalage = `-${navHeight / 16}` + "rem";
 
 /// decalage offres
 componentContent.style.marginBottom = decalage;
-console.log(componentContent);
 
 //// site en dev
 if (document.currentScript.src === "http://127.0.0.1:5500/dist/index.js") {
