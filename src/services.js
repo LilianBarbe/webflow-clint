@@ -288,5 +288,29 @@ docButton.addEventListener("click", openModal);
 modalQuitButton.addEventListener("click", closeModal);
 modalBg.addEventListener("click", closeModal);
 
+if (window.innerWidth > 991) {
+  document.addEventListener("DOMContentLoaded", function () {
+    var wrap = document.querySelector(".methode_wrap");
+    var methodTitle = document.querySelector(".react");
+
+    // check if elements exist
+    var distance = wrap.offsetTop - methodTitle.offsetTop;
+    methodTitle.style.marginTop = -distance + "px";
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var titre = document.querySelector(".real_contain--mw1");
+    var sectionTop = document.querySelector(".real_wrap--pt12");
+
+    if (titre && sectionTop) {
+      console.log(titre.offsetTop);
+      console.log(sectionTop.offsetTop);
+
+      var distance = titre.offsetTop - sectionTop.offsetTop;
+      console.log(distance);
+      titre.style.marginTop = -192 + "px";
+    }
+  });
+}
 // empty testimonial
 testiList.append(emptyTesti);
