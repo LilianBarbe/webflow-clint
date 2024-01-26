@@ -13,6 +13,7 @@ navSetup();
 applyButtonsBehav();
 revealAnimation();
 setAccordions();
+//
 
 // const & let
 const modalDev = document.querySelector("[modal-dev]");
