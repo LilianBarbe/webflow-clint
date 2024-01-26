@@ -1,16 +1,31 @@
+// import
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { lenis } from "./lenisSetup"; // Importer les éléments nécessaires
 gsap.registerPlugin(ScrollTrigger);
 
-let lastScrollTop = 0;
+// const
 const navWrap = document.querySelector(".nav_wrap");
-const navBtnChange = document.querySelector(".nav_btn_change");
 export const navHeight = navWrap.offsetHeight;
+const navBtnChange = document.querySelector(".nav_btn_change");
 const menuBtnMobile = document.querySelector(".nav_menu_icon");
 const menuMobile = document.querySelector("[menu-links]");
+const logo = navWrap.querySelector(".nav_logo_item");
+const lettres = logo.childNodes;
+const tlLogo = gsap.timeline({ paused: true });
 
+// fonctions
+
+//// ANIMATION LOGO
+tlLogo.from(lettres, { scaleY: 2, y: 30, stagger: 0.08, ease: "power2.out" });
+tlLogo.play();
+lenis.start();
+
+//// ANIMATION MENU MOBILE
 if (window.innerWidth <= 991) {
-  const showMenuMobile = gsap.timeline({ paused: true });
+  const showMenuMobile = gsap.timeline({
+    paused: true,
+  });
   showMenuMobile.set(menuMobile, { display: "flex" });
   showMenuMobile.from(menuMobile, { x: "100%" });
   showMenuMobile.from(menuMobile.children, { opacity: 0, stagger: 0.2 }, 0.2);
@@ -18,17 +33,23 @@ if (window.innerWidth <= 991) {
   menuBtnMobile.addEventListener("click", function () {
     if (showMenuMobile.progress() === 0) {
       showMenuMobile.play();
-      // lenis.stop();
     } else {
       showMenuMobile.timeScale(1.5);
       showMenuMobile.reverse();
-      // lenis.start();
+    }
+    let stopped = false;
+    if (!stopped) {
+      document.querySelector(".lenis").classList.add("lenis-stopped");
+      stopped = true;
+    } else {
+      document.querySelector(".lenis").classList.remove("lenis-stopped");
+      stopped = false;
     }
   });
 }
 
+//// Création de l'animation dropdown
 if (window.innerWidth > 991) {
-  // Création de l'animation dropdown
   let tlDropdown = gsap.timeline({ paused: true });
   gsap.set(".dropdown_inner_wrap", { xPercent: -40 });
 
@@ -47,49 +68,46 @@ if (window.innerWidth > 991) {
     });
 }
 
-export function navSetup() {
-  function handleScrollDown() {
-    gsap.to(navWrap, { y: -navHeight - 1 });
-    gsap.to(navBtnChange, {
-      y: navHeight + 1,
-      onStart: function () {
-        tlLogo.restart();
-      },
-    });
-  }
-
-  function handleScrollUp() {
-    gsap.to(navWrap, {
-      y: 0,
-      onComplete: function () {
-        // tlLogo.play();
-      },
-    });
-    gsap.to(navBtnChange, {
-      y: 0,
-    });
-  }
-  tlLogo.play();
-
-  window.addEventListener(
-    "scroll",
-    function () {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-      if (scrollTop > lastScrollTop) {
-        handleScrollDown();
-      } else {
-        handleScrollUp();
-      }
-
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+//// Scroll vers le HAUT
+function scrollBas() {
+  gsap.to(navWrap, { y: -navHeight - 1 });
+  gsap.to(navBtnChange, {
+    y: navHeight + 1,
+    onStart: function () {
+      tlLogo.restart();
     },
-    false
-  );
+  });
+  if (window.innerWidth <= 991) {
+    gsap.to(menuMobile, {
+      y: navHeight + 1,
+    });
+  }
 }
 
-// LOGO ANIMATION
-const logo = navWrap.querySelector(".nav_logo_item");
-const lettres = logo.childNodes;
-const tlLogo = gsap.timeline({ paused: true });
-tlLogo.from(lettres, { scaleY: 2, y: 30, stagger: 0.08, ease: "power2.out" });
+//// Scroll vers le BAS
+function scrollHaut() {
+  gsap.to(navWrap, {
+    y: 0,
+  });
+  gsap.to(navBtnChange, {
+    y: 0,
+  });
+  if (window.innerWidth <= 991) {
+    gsap.to(menuMobile, {
+      y: 0,
+    });
+  }
+}
+
+//// EXPORT
+export function navSetup() {
+  lenis.on("scroll", function (e) {
+    let scrollDirection = e.direction;
+    if (scrollDirection === 1) {
+      scrollBas();
+    } else {
+      // au scroll haut
+      scrollHaut();
+    }
+  });
+}

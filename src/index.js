@@ -5,7 +5,6 @@ import { setAccordions } from "./components/accordion.js";
 import { navSetup } from "./utils/navSetup.js";
 import { applyButtonsBehav } from "./components/buttonBehaviors.js";
 import { revealAnimation } from "./components/revealAnim.js";
-import { initializeLenisScroll } from "./utils/lenisSetup.js";
 import { navHeight } from "./utils/navSetup.js";
 
 // construct
@@ -13,11 +12,9 @@ gsap.registerPlugin(ScrollTrigger);
 navSetup();
 applyButtonsBehav();
 revealAnimation();
-initializeLenisScroll();
 setAccordions();
 
 // const & let
-let date = new Date();
 const modalDev = document.querySelector("[modal-dev]");
 const panneaux = document.querySelectorAll("[panel-cms-item]");
 const innerPanneaux = document.querySelectorAll("[panel-bg]");

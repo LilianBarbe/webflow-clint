@@ -3,7 +3,6 @@ import Swiper from "swiper";
 import "swiper/css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { initializeLenisScroll } from "./utils/lenisSetup.js";
 import { revealAnimation } from "./components/revealAnim.js";
 import { setAccordions } from "./components/accordion.js";
 import { applyButtonsBehav } from "./components/buttonBehaviors.js";
@@ -12,14 +11,12 @@ import { navSetup } from "./utils/navSetup.js";
 // construct
 gsap.defaults({ duration: 0.25 });
 gsap.registerPlugin(ScrollTrigger);
-initializeLenisScroll();
 revealAnimation();
 setAccordions();
 applyButtonsBehav();
 navSetup();
 
 // const & let
-const modalDev = document.querySelector("[modal-dev]");
 const modalWrap = document.querySelector('[modal="wrap"]');
 const modalQuitButton = modalWrap.querySelector('[modal="button"]');
 const modalBg = modalWrap.querySelector('[modal="bg"]');
@@ -29,13 +26,8 @@ const emptyTesti = document.querySelector("[testi-empty]");
 const testiList = document.querySelector("[testi-list]");
 
 // functions
-
-//// site en dev
-if (document.currentScript.src === "http://127.0.0.1:5500/dist/services.js") {
-  modalDev.style.display = "flex";
-} else {
-  modalDev.style.display = "none";
-}
+// empty testimonial
+testiList.append(emptyTesti);
 
 //// services
 $("[tr-scroll-toggle='component']").each(function (index) {
@@ -224,6 +216,42 @@ $("[tr-scroll-toggle='component']").each(function (index) {
 });
 
 // SWIPER
+// SWIPER
+document.addEventListener("DOMContentLoaded", function () {
+  const swiperComponents = document.querySelectorAll("[swiper-component]");
+  swiperComponents.forEach((component) => {
+    const swiperTestimonial = component.querySelector(".swiper.is-testimonial");
+
+    if (swiperTestimonial) {
+      const swiper = new Swiper(swiperTestimonial, {
+        breakpoints: {
+          768: {
+            centeredSlides: false,
+            spaceBetween: 30,
+            followFinger: true,
+            autoHeight: false,
+            loop: false,
+            mousewheel: {
+              forceToAxis: true,
+            },
+            keyboard: {
+              enabled: true,
+              onlyInViewport: true,
+            },
+            slidesPerView: "auto",
+          },
+          240: {
+            slidesPerView: 1.33,
+            centeredSlides: true,
+          },
+        },
+      });
+    } else {
+      console.log(`Pas de swiper trouvé`);
+    }
+  });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const swiperComponents = document.querySelectorAll("[swiper-component]");
   swiperComponents.forEach((component) => {
@@ -307,5 +335,3 @@ if (window.innerWidth > 991) {
     titre.style.marginTop = -10 + "vh";
   }
 }
-// empty testimonial
-testiList.append(emptyTesti);
