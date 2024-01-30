@@ -6889,7 +6889,6 @@
   var tlLogo = gsapWithCSS.timeline({ paused: true });
   tlLogo.from(lettres, { scaleY: 2, y: 30, stagger: 0.08, ease: "power2.out" });
   tlLogo.play();
-  lenis.start();
   if (window.innerWidth <= 991) {
     const showMenuMobile = gsapWithCSS.timeline({
       paused: true
@@ -6903,15 +6902,6 @@
       } else {
         showMenuMobile.timeScale(1.5);
         showMenuMobile.reverse();
-      }
-      let stopped = false;
-      if (!stopped) {
-        document.querySelector(".lenis").classList.add("lenis-stopped");
-        stopped = true;
-      } else {
-        console.log("retirer");
-        document.querySelector(".lenis").classList.remove("lenis-stopped");
-        stopped = false;
       }
     });
   }
@@ -7013,18 +7003,18 @@
   function isObject(obj) {
     return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
   }
-  function extend(target, src) {
+  function extend(target, src2) {
     if (target === void 0) {
       target = {};
     }
-    if (src === void 0) {
-      src = {};
+    if (src2 === void 0) {
+      src2 = {};
     }
-    Object.keys(src).forEach((key) => {
+    Object.keys(src2).forEach((key) => {
       if (typeof target[key] === "undefined")
-        target[key] = src[key];
-      else if (isObject(src[key]) && isObject(target[key]) && Object.keys(src[key]).length > 0) {
-        extend(target[key], src[key]);
+        target[key] = src2[key];
+      else if (isObject(src2[key]) && isObject(target[key]) && Object.keys(src2[key]).length > 0) {
+        extend(target[key], src2[key]);
       }
     });
   }
@@ -11376,6 +11366,16 @@
         });
       }
     });
+  });
+  $("#play-video").on("click", function(e) {
+    var $video = $("#video");
+    src = $video.attr("src");
+    $video.attr("src", src + "?autoplay=1");
+  });
+  $("#pause-video").on("click", function(e) {
+    var $video = $("#video");
+    src = $video.attr("src");
+    $video.attr("src", src + "?autoplay=0");
   });
 })();
 /*! Bundled license information:
