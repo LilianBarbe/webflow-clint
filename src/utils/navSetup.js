@@ -37,15 +37,15 @@ if (window.innerWidth <= 991) {
       showMenuMobile.timeScale(1.5);
       showMenuMobile.reverse();
     }
-    let stopped = false;
-    if (!stopped) {
-      document.querySelector(".lenis").classList.add("lenis-stopped");
-      stopped = true;
-    } else {
-      console.log("retirer");
-      document.querySelector(".lenis").classList.remove("lenis-stopped");
-      stopped = false;
-    }
+    // let stopped = false;
+    // if (!stopped) {
+    //   document.querySelector(".lenis").classList.add("lenis-stopped");
+    //   stopped = true;
+    // } else {
+    //   console.log("retirer");
+    //   document.querySelector(".lenis").classList.remove("lenis-stopped");
+    //   stopped = false;
+    // }
   });
 }
 
