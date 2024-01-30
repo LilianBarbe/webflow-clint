@@ -19,7 +19,7 @@ const tlLogo = gsap.timeline({ paused: true });
 //// ANIMATION LOGO
 tlLogo.from(lettres, { scaleY: 2, y: 30, stagger: 0.08, ease: "power2.out" });
 tlLogo.play();
-lenis.start();
+// lenis.start();
 
 //// ANIMATION MENU MOBILE
 if (window.innerWidth <= 991) {
