@@ -1,4 +1,6 @@
 // import
+import Swiper from "swiper";
+import "swiper/css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { revealAnimation } from "./components/revealAnim.js";
