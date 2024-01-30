@@ -6,6 +6,7 @@ import { navSetup } from "./utils/navSetup.js";
 import { applyButtonsBehav } from "./components/buttonBehaviors.js";
 import { revealAnimation } from "./components/revealAnim.js";
 import { navHeight } from "./utils/navSetup.js";
+import { setupSwiper } from "./utils/swiperGeneral.js";
 
 // construct
 gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +14,7 @@ navSetup();
 applyButtonsBehav();
 revealAnimation();
 setAccordions();
-//
+setupSwiper();
 
 // const & let
 const modalDev = document.querySelector("[modal-dev]");

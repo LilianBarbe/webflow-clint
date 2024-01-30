@@ -1,12 +1,11 @@
 // import
-import Swiper from "swiper";
-import "swiper/css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { revealAnimation } from "./components/revealAnim.js";
 import { setAccordions } from "./components/accordion.js";
 import { applyButtonsBehav } from "./components/buttonBehaviors.js";
 import { navSetup } from "./utils/navSetup.js";
+import { setupSwiper } from "./utils/swiperGeneral.js";
 
 // construct
 gsap.defaults({ duration: 0.25 });
@@ -15,6 +14,7 @@ revealAnimation();
 setAccordions();
 applyButtonsBehav();
 navSetup();
+setupSwiper();
 
 // const & let
 const modalWrap = document.querySelector('[modal="wrap"]');
@@ -215,77 +215,34 @@ $("[tr-scroll-toggle='component']").each(function (index) {
   });
 });
 
-// SWIPER
-// SWIPER
-document.addEventListener("DOMContentLoaded", function () {
-  const swiperComponents = document.querySelectorAll("[swiper-component]");
-  swiperComponents.forEach((component) => {
-    const swiperTestimonial = component.querySelector(".swiper.is-testimonial");
-
-    if (swiperTestimonial) {
-      const swiper = new Swiper(swiperTestimonial, {
-        breakpoints: {
-          768: {
-            centeredSlides: false,
-            spaceBetween: 30,
-            followFinger: true,
-            autoHeight: false,
-            loop: false,
-            mousewheel: {
-              forceToAxis: true,
-            },
-            keyboard: {
-              enabled: true,
-              onlyInViewport: true,
-            },
-            slidesPerView: "auto",
-          },
-          240: {
-            slidesPerView: 1.33,
-            centeredSlides: true,
-          },
-        },
-      });
-    } else {
-      console.log(`Pas de swiper trouvé`);
-    }
-  });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const swiperComponents = document.querySelectorAll("[swiper-component]");
-  swiperComponents.forEach((component) => {
-    const swiperElement = component.querySelector(".swiper");
-    const centerSlide = swiperElement.getAttribute("centerSlide");
-    if (swiperElement) {
-      const swiper = new Swiper(swiperElement, {
+const setupSwiperAutres = function () {
+  // Définir le breakpoint
+  // Fonction à déclencher au breakpoint
+  const swiper = new Swiper(".swiper.autres_cms_wrap", {
+    centeredSlides: false,
+    followFinger: true,
+    spaceBetween: 32,
+    loop: false,
+    mousewheel: {
+      forceToAxis: true,
+    },
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    },
+    breakpoints: {
+      991: {
+        slidesPerView: 2.6,
+      },
+      240: {
         centeredSlides: false,
-        spaceBetween: 32,
-        followFinger: true,
-        autoHeight: false,
-        loop: false,
-        mousewheel: {
-          forceToAxis: true,
-        },
-        keyboard: {
-          enabled: true,
-          onlyInViewport: true,
-        },
-        breakpoints: {
-          768: {
-            slidesPerView: "auto",
-          },
-          240: {
-            slidesPerView: 1.33,
-            centeredSlides: centerSlide,
-          },
-        },
-      });
-    } else {
-      console.log(`Pas de swiper trouvé`);
-    }
+        slidesPerView: 1.1,
+      },
+    },
   });
-});
+};
+
+setupSwiperAutres();
 
 // modal télécharger
 const openModal = () => {

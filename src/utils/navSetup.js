@@ -42,6 +42,7 @@ if (window.innerWidth <= 991) {
       document.querySelector(".lenis").classList.add("lenis-stopped");
       stopped = true;
     } else {
+      console.log("retirer");
       document.querySelector(".lenis").classList.remove("lenis-stopped");
       stopped = false;
     }
