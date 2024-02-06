@@ -24,11 +24,14 @@ const modalQuitButton = modalWrap.querySelector('[modal="button"]');
 const modalBg = modalWrap.querySelector('[modal="bg"]');
 const modalCard = modalWrap.querySelector('[modal="card"]');
 const docButton = document.querySelector('[modal="want"]');
+const testiCard = document.querySelector(".swiper-slide.is-testimonial");
 const emptyTesti = document.querySelector("[testi-empty]");
 const testiList = document.querySelector("[testi-list]");
 
 // functions
 // empty testimonial
+const heightTesti = testiCard.offsetHeight;
+emptyTesti.style.height = `${heightTesti}px`;
 testiList.append(emptyTesti);
 
 //// services
@@ -79,7 +82,7 @@ $("[tr-scroll-toggle='component']").each(function (index) {
     }
     makeItemActive(0);
     // scroll to trigger div on click of anchor
-    let anchorLinks = component.find("[tr-anchors]").children();
+    let anchorLinks = component.find("[tr-scroll-toggle='list']").children();
     anchorLinks.on("click", function () {
       let myIndex = $(this).index();
       let scrollDistance =
@@ -283,8 +286,6 @@ if (window.innerWidth > 991) {
   var distance =
     wrap.getBoundingClientRect().top - methodTitle.getBoundingClientRect().top;
   wrap.style.marginTop = -10 + "vh";
-  console.log(methodTitle.getBoundingClientRect().top);
-  console.log(wrap.getBoundingClientRect().top);
 
   var titre = document.querySelector(".real_contain--mw1");
   var sectionTop = document.querySelector(".real_wrap--pt12");
