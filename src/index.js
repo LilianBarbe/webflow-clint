@@ -169,14 +169,14 @@ window.Webflow.push(() => {
   // });
 });
 
-$("#play-video").on("click", function (e) {
-  var $video = $("#video");
-  src = $video.attr("src");
-  $video.attr("src", src + "?autoplay=1");
-});
+// $("#play-video").on("click", function (e) {
+//   var $video = $("#video");
+//   src = $video.attr("src");
+//   $video.attr("src", src + "?autoplay=1");
+// });
 
-$("#pause-video").on("click", function (e) {
-  var $video = $("#video");
-  src = $video.attr("src");
-  $video.attr("src", src + "?autoplay=0");
-});
+// $("#pause-video").on("click", function (e) {
+//   var $video = $("#video");
+//   src = $video.attr("src");
+//   $video.attr("src", src + "?autoplay=0");
+// });

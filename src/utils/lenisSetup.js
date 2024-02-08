@@ -12,7 +12,6 @@ export function initializeLenisScroll() {
     lenis.raf(time * 1000);
   });
   gsap.ticker.lagSmoothing(0);
-  console.log(lenis.rootElement);
   return lenis;
 }
 

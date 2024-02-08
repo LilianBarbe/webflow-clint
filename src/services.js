@@ -27,12 +27,21 @@ const docButton = document.querySelector('[modal="want"]');
 const testiCard = document.querySelector(".swiper-slide.is-testimonial");
 const emptyTesti = document.querySelector("[testi-empty]");
 const testiList = document.querySelector("[testi-list]");
+const temp1 = document.querySelector("[reveal]");
+const temp2 = document.querySelector(".services_tab_sticky");
 
 // functions
 // empty testimonial
 const heightTesti = testiCard.offsetHeight;
 emptyTesti.style.height = `${heightTesti}px`;
+emptyTesti.style.width = `100%`;
 testiList.append(emptyTesti);
+
+document.addEventListener("DOMContentLoaded", function () {
+  var ecart = Math.abs(temp1.offsetTop - temp2.offsetTop);
+  temp2.style.marginTop = -ecart + "px";
+  temp2.style.marginBottom = -ecart + "px";
+});
 
 //// services
 $("[tr-scroll-toggle='component']").each(function (index) {
@@ -249,7 +258,8 @@ const setupSwiperAutres = function () {
 
 setupSwiperAutres();
 
-// modal télécharger
+//// modal télécharger
+// open modal
 const openModal = () => {
   modalWrap.classList.remove("display-none");
   document.body.style.overflow = "hidden";
@@ -263,6 +273,7 @@ const openModal = () => {
   });
 };
 
+// modal close
 const closeModal = () => {
   gsap.to(modalCard, {
     opacity: 0,
@@ -274,24 +285,7 @@ const closeModal = () => {
   });
 };
 
+// run functions
 docButton.addEventListener("click", openModal);
 modalQuitButton.addEventListener("click", closeModal);
 modalBg.addEventListener("click", closeModal);
-
-if (window.innerWidth > 991) {
-  var wrap = document.querySelector(".methode_wrap");
-  var methodTitle = document.querySelector(".react");
-
-  // check if elements exist
-  var distance =
-    wrap.getBoundingClientRect().top - methodTitle.getBoundingClientRect().top;
-  wrap.style.marginTop = -10 + "vh";
-
-  var titre = document.querySelector(".real_contain--mw1");
-  var sectionTop = document.querySelector(".real_wrap--pt12");
-
-  if (titre && sectionTop) {
-    var distance = titre.offsetTop - sectionTop.offsetTop;
-    titre.style.marginTop = -10 + "vh";
-  }
-}
