@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@finsweet/attributes-cmsfilter": "^1.16.2",
     "@studio-freight/lenis": "^1.0.33",
     "gsap": "npm:@gsap/shockingly@^3.12.4",
     "swiper": "^11.0.5"
@@ -10,7 +11,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:index": "esbuild src/index.js --bundle --minify --outfile=dist/index.js --watch",
-    "build:services": "esbuild src/services.js --bundle --minify --outfile=dist/services.js --watch"
+    "build:services": "esbuild src/services.js --bundle --minify --outfile=dist/services.js --watch",
+    "build:real": "esbuild src/realisations.js --bundle --minify --outfile=dist/realisations.js --watch"
   },
   "keywords": [],
   "author": "",
