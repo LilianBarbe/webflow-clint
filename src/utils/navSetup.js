@@ -1,7 +1,7 @@
 // import
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { lenis } from "./lenisSetup"; // Importer les éléments nécessaires
+import { lenis } from "./lenisSetup";
 gsap.registerPlugin(ScrollTrigger);
 
 // const
@@ -15,11 +15,9 @@ const lettres = logo.childNodes;
 const tlLogo = gsap.timeline({ paused: true });
 
 // fonctions
-
 //// ANIMATION LOGO
 tlLogo.from(lettres, { scaleY: 2, y: 30, stagger: 0.08, ease: "power2.out" });
 tlLogo.play();
-// lenis.start();
 
 //// ANIMATION MENU MOBILE
 if (window.innerWidth <= 991) {
@@ -37,15 +35,6 @@ if (window.innerWidth <= 991) {
       showMenuMobile.timeScale(1.5);
       showMenuMobile.reverse();
     }
-    // let stopped = false;
-    // if (!stopped) {
-    //   document.querySelector(".lenis").classList.add("lenis-stopped");
-    //   stopped = true;
-    // } else {
-    //   console.log("retirer");
-    //   document.querySelector(".lenis").classList.remove("lenis-stopped");
-    //   stopped = false;
-    // }
   });
 }
 

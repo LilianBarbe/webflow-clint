@@ -7,7 +7,9 @@ import { revealAnimation } from "./components/revealAnim.js";
 import { setAccordions } from "./components/accordion.js";
 import { applyButtonsBehav } from "./components/buttonBehaviors.js";
 import { navSetup } from "./utils/navSetup.js";
+import { navHeight } from "./utils/navSetup.js";
 import { setupSwiper } from "./utils/swiperGeneral.js";
+import { lenis } from "./utils/lenisSetup";
 
 // construct
 gsap.defaults({ duration: 0.25 });
@@ -27,7 +29,7 @@ const docButton = document.querySelector('[modal="want"]');
 const testiCard = document.querySelector(".swiper-slide.is-testimonial");
 const emptyTesti = document.querySelector("[testi-empty]");
 const testiList = document.querySelector("[testi-list]");
-const temp1 = document.querySelector("[reveal]");
+const temp1 = document.querySelector("[titre-step]");
 const temp2 = document.querySelector(".services_tab_sticky");
 
 // functions
@@ -36,12 +38,6 @@ const heightTesti = testiCard.offsetHeight;
 emptyTesti.style.height = `${heightTesti}px`;
 emptyTesti.style.width = `100%`;
 testiList.append(emptyTesti);
-
-document.addEventListener("DOMContentLoaded", function () {
-  var ecart = Math.abs(temp1.offsetTop - temp2.offsetTop);
-  temp2.style.marginTop = -ecart + "px";
-  temp2.style.marginBottom = -ecart + "px";
-});
 
 //// services
 $("[tr-scroll-toggle='component']").each(function (index) {
@@ -228,6 +224,38 @@ $("[tr-scroll-toggle='component']").each(function (index) {
     };
   });
 });
+
+// let t2 = $(".step_list--gd1-ct12").offset().top;
+// let t1 = $(".services_tab_sticky").offset().top;
+// let truc = t2 - t1;
+// $(".step_list--gd1-ct12").css("margin-top", -truc + "px");
+
+// let t4 = $(".services_tab_sticky").offset().top;
+// let t3 = $(".real_wrap").offset().top;
+// let truc2 = t4 - t3;
+// $(".services_tab_sticky").css("margin-bottom", -truc2 + "px");
+
+// nav & sticky
+// lenis.on("scroll", function (e) {
+//   let scrollDirection = e.direction;
+//   if (scrollDirection === 1) {
+//     document.querySelector(
+//       ".services_tab_sticky, .services_tab_img_list"
+//     ).style.paddingTop = `10px`;
+//   } else {
+//     // au scroll haut
+//     document.querySelector(
+//       ".services_tab_sticky, .services_tab_img_list"
+//     ).style.paddingTop = `${navHeight + 10}px`;
+//   }
+// });
+
+// espace blanc
+// document.addEventListener("DOMContentLoaded", function () {
+//   var ecart = Math.abs(temp1.offsetTop - temp2.offsetTop);
+//   temp2.style.marginTop = -ecart + "px";
+//   temp2.style.marginBottom = -ecart + "px";
+// });
 
 const setupSwiperAutres = function () {
   // Définir le breakpoint
