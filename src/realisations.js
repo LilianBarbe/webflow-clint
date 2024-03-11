@@ -15,8 +15,6 @@ navSetup();
 applyButtonsBehav();
 
 // functions
-formWrap.insertAdjacentElement("beforeend", clearBtn);
-
 window.fsAttributes = window.fsAttributes || [];
 window.fsAttributes.push([
   "cmsfilter",
