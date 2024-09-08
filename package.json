@@ -12,6 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:index": "esbuild src/index.js --bundle --minify --outfile=dist/index.js --watch",
     "build:services": "esbuild src/services.js --bundle --minify --outfile=dist/services.js --watch",
+    "build:solutions": "esbuild src/solutions.js --bundle --minify --outfile=dist/solutions.js --watch",
     "build:real": "esbuild src/realisations.js --bundle --minify --outfile=dist/realisations.js --watch"
   },
   "keywords": [],

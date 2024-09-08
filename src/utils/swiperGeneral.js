@@ -16,7 +16,7 @@ export const setupSwiper = function () {
           followFinger: true,
           spaceBetween: 10,
           autoHeight: false,
-          slidesPerView: 1.03,
+          slidesPerView: 1.4,
           loop: false,
           mousewheel: {
             forceToAxis: true,
