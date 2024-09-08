@@ -12,7 +12,7 @@ export const setupSwiper = function () {
 
       if (swiperElement) {
         const swiper = new Swiper(swiperElement, {
-          centeredSlides: true,
+          centeredSlides: false,
           followFinger: true,
           spaceBetween: 10,
           autoHeight: false,
